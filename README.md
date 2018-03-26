@@ -4,9 +4,10 @@
 **Bot for Discord written with C# and Discord.Net 1.0.2**
 ### How to setup Mimicry?
 1. Download `Mimicry.exe`, `cfg` and `libs.zip`
-2. Open `cfg`, then write there the token of your App.
-3. Save and close `cfg`.
-4. Run `Mimicry.exe`. Bot will be runned on your PC.
+2. Extract `libs.zip` to folder with `Mimicry.exe` and `cfg`
+3. Open `cfg`, then write there the token of your App.
+4. Save and close `cfg`.
+5. Run `Mimicry.exe`. Bot will be runned on your PC.
 ### Commands
 #### Basic commands
 - `>echo <MESSAGE>` - bot responds with <MESSAGE>
