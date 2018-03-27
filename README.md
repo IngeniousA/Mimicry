@@ -10,7 +10,7 @@
 5. Run `Mimicry.exe`. Bot will be runned on your PC.
 ### Commands
 #### Basic commands
-- `>echo <MESSAGE>` - bot responds with <MESSAGE>
+- `>echo <MESSAGE>` - bot responds with `<MESSAGE>`
 - `>halt` or `>exit` - bot stops running on PC
 - `>getlog` - bot sends logs
 - `>getseslog` - bot sends logs from this session
